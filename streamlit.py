@@ -6,12 +6,21 @@ import matplotlib.pyplot as plt
 from sklearn.impute import SimpleImputer, KNNImputer
 from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 
+from ucimlrepo import fetch_ucirepo 
+
 def main():
     st.title("ML Data Preparation and EDA App")
 
     st.sidebar.header("Upload and Options")
 
     uploaded_file = st.sidebar.file_uploader("Upload your file (CSV or Excel)", type=["csv", "xlsx"])
+
+    # fetch dataset 
+    dry_bean = fetch_ucirepo(id=602) 
+    
+    # data (as pandas dataframes) 
+    X = dry_bean.data.features 
+    y = dry_bean.data.targets
 
     # Insert containers separated into tabs:
     edaTab, models = st.tabs(["EDA", "Models"])
